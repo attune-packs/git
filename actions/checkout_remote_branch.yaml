@@ -1,0 +1,36 @@
+ref: git.checkout_remote_branch
+label: "Checkout Remote Branch"
+description: "Fetch the configured origin remote and check out an existing branch in a worker-local repository"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: git_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs:
+  - standard
+parameters:
+  local_repo_directory:
+    type: string
+    required: true
+  remote_branch:
+    type: string
+    required: true
+  credential_key:
+    type: string
+    description: "Optional pack-owned or action-owned encrypted Git credential Key ref for origin"
+  timeout_seconds:
+    type: integer
+    description: "Maximum duration in seconds for each Git command, not the whole action"
+    default: 120
+    minimum: 1
+    maximum: 3600
+output:
+  branch:
+    type: string
+    required: true
+  revision:
+    type: string
+    required: true
+tags: [git, branch]

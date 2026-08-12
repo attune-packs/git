@@ -1,0 +1,42 @@
+ref: git.clone
+label: "Clone Repository"
+description: "Clone a repository and check out a branch or tag"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: git_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs:
+  - standard
+parameters:
+  source:
+    type: string
+    description: "Repository URL or worker-local source path"
+    required: true
+  ref:
+    type: string
+    description: "Branch or tag to check out"
+    default: master
+  destination:
+    type: string
+    description: "Destination path on the selected worker"
+    required: true
+  credential_key:
+    type: string
+    description: "Optional pack-owned or action-owned encrypted Git credential Key ref"
+  timeout_seconds:
+    type: integer
+    description: "Maximum duration in seconds for each Git command, not the whole action"
+    default: 120
+    minimum: 1
+    maximum: 3600
+output:
+  repository_path:
+    type: string
+    required: true
+  revision:
+    type: string
+    required: true
+tags: [git, clone]

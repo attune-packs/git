@@ -1,0 +1,39 @@
+ref: git.new_local_branch
+label: "Create Local Branch"
+description: "Create and check out a branch from a source ref"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: git_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+parameters:
+  local_repo_directory:
+    type: string
+    required: true
+  source_branch:
+    type: string
+    default: master
+    required: true
+  new_branch:
+    type: string
+    default: patch_1
+    required: true
+  timeout_seconds:
+    type: integer
+    description: "Maximum duration in seconds for each Git command, not the whole action"
+    default: 120
+    minimum: 1
+    maximum: 3600
+output:
+  branch:
+    type: string
+    required: true
+  source_branch:
+    type: string
+    required: true
+  revision:
+    type: string
+    required: true
+tags: [git, branch]

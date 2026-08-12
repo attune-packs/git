@@ -1,0 +1,32 @@
+ref: git.get_local_repo_latest_commit
+label: "Get Local Repository Latest Commit"
+description: "Resolve a branch or ref in a worker-local repository"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: git_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+parameters:
+  repo_path:
+    type: string
+    required: true
+  branch:
+    type: string
+    default: master
+    required: true
+  timeout_seconds:
+    type: integer
+    description: "Maximum duration in seconds for each Git command, not the whole action"
+    default: 120
+    minimum: 1
+    maximum: 3600
+output:
+  branch:
+    type: string
+    required: true
+  revision:
+    type: string
+    required: true
+tags: [git, commit]

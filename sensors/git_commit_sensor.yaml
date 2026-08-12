@@ -1,0 +1,13 @@
+ref: git.git_commit_sensor
+label: "Git Commit Sensor"
+description: "Polls configured repository branches and emits head changes"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: git_commit_sensor.py
+trigger_types:
+  - git.head_sha_monitor
+poll_interval: 30
+log_retention_policy: versions
+log_retention_limit: 4
+tags: [git, commit, polling]

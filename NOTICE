@@ -1,0 +1,8 @@
+This product includes an adaptation of the StackStorm Exchange Git pack,
+version 2.0.0, originally attributed to StackStorm, Inc.
+
+Source: https://github.com/StackStorm-Exchange/stackstorm-git
+Revision: e291834ae9f5fda45ae5c089f004a7e9fb631594
+License: Apache License 2.0
+
+The implementation and Attune component metadata have been modified.

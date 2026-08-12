@@ -1,0 +1,62 @@
+ref: git.head_sha_monitor
+label: "Git Head Changed"
+description: "Emitted when the monitored branch head changes"
+enabled: true
+parameters:
+  repository_url:
+    type: string
+    description: "Repository URL available non-interactively to the sensor worker"
+    required: true
+  branch:
+    type: string
+    default: master
+    required: true
+  emit_initial:
+    type: boolean
+    description: "Emit the current head when no checkpoint exists"
+    default: true
+  timeout_seconds:
+    type: integer
+    default: 120
+    minimum: 1
+    maximum: 3600
+output:
+  author:
+    type: string
+    required: true
+  author_email:
+    type: string
+    required: true
+  authored_date:
+    type: string
+    format: date-time
+    required: true
+  author_tz_offset:
+    type: integer
+    required: true
+  committer:
+    type: string
+    required: true
+  committer_email:
+    type: string
+    required: true
+  committed_date:
+    type: string
+    format: date-time
+    required: true
+  committer_tz_offset:
+    type: integer
+    required: true
+  commit_message:
+    type: string
+    required: true
+  revision:
+    type: string
+    required: true
+  branch:
+    type: string
+    required: true
+  repository_url:
+    type: string
+    required: true
+tags: [git, commit, sensor]
