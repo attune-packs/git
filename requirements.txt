@@ -1,1 +1,2 @@
 attune-sdk[sensor]
+PyYAML>=6.0,<7.0
