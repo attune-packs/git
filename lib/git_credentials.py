@@ -86,7 +86,7 @@ def fetch_attune_key(ref: str) -> Any:
     except ImportError as exc:
         raise GitCredentialError("attune-sdk is required to resolve credential_key") from exc
     try:
-        response = get_key.sync_detailed(ref, client=attune.context.client, decrypt=True)
+        response = get_key.sync_detailed(ref, client=attune.context.client)
     except Exception as exc:
         raise GitCredentialError(f"unable to read credential Key {ref!r}") from exc
     status = int(response.status_code)

@@ -151,9 +151,9 @@ class PackTests(unittest.TestCase):
             result = git_action.execute("clone", {
                 "source": "https://example.invalid/repo.git",
                 "destination": "/tmp/repo",
-                "credential_key": "git.credentials",
+                "credential_key": "pack.git.credentials",
             })
-        credentials.assert_called_once_with("https://example.invalid/repo.git", credential_key="git.credentials")
+        credentials.assert_called_once_with("https://example.invalid/repo.git", credential_key="pack.git.credentials")
         self.assertEqual(observed[0][0], "clone")
         self.assertEqual(result["revision"], "abc")
 
@@ -177,7 +177,7 @@ class PackTests(unittest.TestCase):
             git_action.execute("checkout_remote_branch", {
                 "local_repo_directory": "/tmp/repo",
                 "remote_branch": "main",
-                "credential_key": "git.credentials",
+                "credential_key": "pack.git.credentials",
             })
 
     def test_entrypoint_rejects_malformed_json_without_echoing_input(self):

@@ -22,6 +22,12 @@ reserved `standard` execution permission, which permits scoped reads and
 decryption of pack-owned and action-owned Keys; it does not grant arbitrary Key
 access.
 
+For a pack-owned Key, create it with a local ref such as `credentials`,
+`owner_type: pack`, and `owner_pack_ref: git`. Attune constructs the canonical
+ref `pack.git.credentials`, which is the value to pass as `credential_key`.
+Action-owned Keys use `owner_action_ref` and canonical refs such as
+`action.git.clone.credentials`.
+
 An HTTPS token credential Key has this JSON shape:
 
 ```json
@@ -108,7 +114,7 @@ Example flat execution parameters:
 {
   "repository": "https://git.example.invalid/example/project.git",
   "branch": "main",
-  "credential_key": "git.readonly_credentials",
+  "credential_key": "pack.git.readonly_credentials",
   "timeout_seconds": 60
 }
 ```

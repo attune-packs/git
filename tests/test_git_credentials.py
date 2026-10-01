@@ -18,12 +18,12 @@ import git_credentials
 
 
 class CredentialTests(unittest.TestCase):
-    def test_fetch_key_requests_scoped_decryption(self):
+    def test_fetch_key_uses_current_sdk_signature(self):
         calls = {}
         get_key = ModuleType("attune.api_client.api.secrets.get_key")
 
-        def sync_detailed(ref, *, client, decrypt):
-            calls.update(ref=ref, client=client, decrypt=decrypt)
+        def sync_detailed(ref, *, client):
+            calls.update(ref=ref, client=client)
             value = {"type": "https_token", "host": "example.invalid", "username": "user", "token": "synthetic"}
             return SimpleNamespace(status_code=200, parsed=SimpleNamespace(data=SimpleNamespace(value=value, encrypted=True)))
 
@@ -39,8 +39,8 @@ class CredentialTests(unittest.TestCase):
             "attune.api_client.api.secrets": secrets,
         }
         with patch.dict(sys.modules, modules):
-            credential = git_credentials.load_credentials(credential_key="git.credentials")
-        self.assertEqual(calls, {"ref": "git.credentials", "client": "execution-client", "decrypt": True})
+            credential = git_credentials.load_credentials(credential_key="pack.git.credentials")
+        self.assertEqual(calls, {"ref": "pack.git.credentials", "client": "execution-client"})
         self.assertEqual(credential.type, "https_token")
 
     def test_key_lookup_errors_are_redacted(self):
@@ -58,7 +58,7 @@ class CredentialTests(unittest.TestCase):
             "attune.api_client.api.secrets": secrets,
         }
         with patch.dict(sys.modules, modules), self.assertRaises(git_credentials.GitCredentialError) as raised:
-            git_credentials.fetch_attune_key("git.credentials")
+            git_credentials.fetch_attune_key("pack.git.credentials")
         self.assertNotIn(marker, str(raised.exception))
 
     def test_credential_shapes_and_invalid_values(self):
